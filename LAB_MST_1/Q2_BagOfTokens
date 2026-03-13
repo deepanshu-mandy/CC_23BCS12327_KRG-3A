@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class BagOfTokens {
+
+    public static int Score(int[] tokens, int power) 
+    {
+        Arrays.sort(tokens);
+
+        int up = 0;
+        int down = tokens.length - 1;
+        int score = 0;
+        int maxScore = 0;
+
+        while (up <= down) 
+            {
+
+            if (power >= tokens[up])
+            {
+                power -= tokens[up];
+                score++;
+                up++;
+                maxScore = Math.max(maxScore, score);
+            }
+            else if (score > 0) 
+            {
+                power += tokens[down];
+                score--;
+                down--;
+            }
+            else 
+            {
+                break;
+            }
+        }
+
+        return maxScore;
+    }
+
+    public static void main(String[] args) 
+    {
+        int[] tokens = {100, 200, 300, 400};
+        int power = 200;
+
+        int result = Score(tokens, power);
+        System.out.println("Maximum Score: " + result);
+    }
+}
